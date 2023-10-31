@@ -1,4 +1,5 @@
 test/
+__pycache__/
 main.c
 *.out
 # Ignore vim files:
