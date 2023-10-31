@@ -1,0 +1,82 @@
+"""
+
+This is the test file for the 0-add_integer module.
+
+"""
+
+# Import the add_integer function from the module
+>>> add_integer = __import__('0-add_integer').add_integer
+
+# Basic Test cases
+## One argument
+>>> add_integer(5)
+103
+
+>>> add_integer(-5)
+93
+
+>>> add_integer(5.5)
+103
+
+>>> add_integer(-5.5)
+93
+
+>>> add_integer(True)
+99
+
+### Errors 
+>>> add_integer("Hello")
+Traceback (most recent call last):
+...
+TypeError: a must be an integer
+
+>>> add_integer(None)
+Traceback (most recent call last):
+...
+TypeError: a must be an integer
+
+>>> add_integer()
+Traceback (most recent call last):
+...
+TypeError: add_integer() missing 1 required positional argument: 'a'
+
+## Two argument
+>>> add_integer(5, 4)
+9
+
+>>> add_integer(5, -4)
+1
+
+>>> add_integer(-5, 4)
+-1
+
+>>> add_integer(-5, -4)
+-9
+
+>>> add_integer(5.2, 5.5)
+10
+
+>>> add_integer(5.2, -5.5)
+0
+
+### Errors
+
+>>> add_integer(-5, "Str")
+Traceback (most recent call last):
+...
+TypeError: b must be an integer
+
+>>> add_integer("Str", 4)
+Traceback (most recent call last):
+...
+TypeError: a must be an integer
+
+>>> add_integer(5.2, None)
+Traceback (most recent call last):
+...
+TypeError: b must be an integer
+
+>>> add_integer(None, 5.2)
+Traceback (most recent call last):
+...
+TypeError: a must be an integer
