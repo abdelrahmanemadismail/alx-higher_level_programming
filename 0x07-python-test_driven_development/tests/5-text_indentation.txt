@@ -1,0 +1,50 @@
+"""
+This is the test file for the text_indentation function.
+"""
+
+# Import the text_indentation function from the module
+>>> text_indentation = __import__('your_module_name').text_indentation
+
+# Test Cases
+# Test Case 1: Basic test with multiple sentences
+>>> text = "This is a sample text. It contains some sentences? Yes, it does. And more: like this."
+>>> text_indentation(text)
+This is a sample text.
+It contains some sentences?
+Yes, it does.
+And more: like this.
+
+# Test Case 2: Text with only one sentence
+>>> text = "This is a single-sentence text."
+>>> text_indentation(text)
+This is a single-sentence text.
+
+# Test Case 3: Text with multiple colons and question marks
+>>> text = "A:B, C:D, E?F:G!H"
+>>> text_indentation(text)
+A:B, C:D, E?
+F:G!
+H
+
+# Test Case 4: Empty text
+>>> text = ""
+>>> text_indentation(text)
+
+# Error Cases
+# Test Case 5: Non-string input (should raise a TypeError)
+>>> text = 42
+>>> text_indentation(text)
+Traceback (most recent call last):
+...
+TypeError: text must be a string
+
+# Test Case 6: Text with leading and trailing spaces
+>>> text = "  This is a text with spaces.  "
+>>> text_indentation(text)
+This is a text with spaces.
+
+# Test Case 7: Text with consecutive punctuation marks
+>>> text = "This is a sentence... with multiple dots."
+>>> text_indentation(text)
+This is a sentence...
+with multiple dots.
