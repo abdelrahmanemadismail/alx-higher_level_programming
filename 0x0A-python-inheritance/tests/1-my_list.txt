@@ -1,0 +1,44 @@
+"""This is the test file for the MyList class."""
+
+# Import the MyList class from the module
+>>> MyList = __import__('1-my_list').MyList
+
+# Basic Test cases
+# Test Case 1: Create a MyList and append elements, then print sorted
+>>> my_list = MyList()
+>>> my_list.append(3)
+>>> my_list.append(1)
+>>> my_list.append(4)
+>>> my_list.append(2)
+>>> my_list.print_sorted()
+[1, 2, 3, 4]
+
+# Test Case 2: Create an empty MyList and print sorted
+>>> empty_list = MyList()
+>>> empty_list.print_sorted()
+[]
+
+# Test Case 3: Create a MyList with a single element and print sorted
+>>> single_element_list = MyList([5])
+>>> single_element_list.print_sorted()
+[5]
+
+# Test Case 4: Create a MyList with negative numbers and print sorted
+>>> negative_numbers_list = MyList([-3, -1, -4, -2])
+>>> negative_numbers_list.print_sorted()
+[-4, -3, -2, -1]
+
+# Error Cases
+# Test Case 5: Append a non-integer element (should raise a TypeError)
+>>> invalid_list = MyList()
+>>> invalid_list.append("string")
+Traceback (most recent call last):
+...
+TypeError: MyList.append(x): x must be an integer
+
+# Test Case 6: Print sorted for a list with a mix of types (should raise a TypeError)
+>>> mixed_types_list = MyList([2, "string", 1.5])
+>>> mixed_types_list.print_sorted()
+Traceback (most recent call last):
+...
+TypeError: MyList.print_sorted(): List contains non-integer element
