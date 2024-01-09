@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 """
 This module provides a class 'Student' that defines a student with public
-instance attributes and a method to retrieve a dictionary representation
-of a Student instance for JSON serialization.
+instance attributes and methods for JSON serialization and deserialization.
 
 Usage:
 - Import this module using 'from student_module import Student'.
 - Create instances of the Student class with first_name, last_name, and age.
 - Call the to_json method to retrieve the dictionary representation.
+- Call the reload_from_json method to replace all attributes from a dictionary.
 """
 
 
@@ -43,3 +43,19 @@ class Student:
         if attrs is None:
             attrs = self.__dict__.keys()
         return {a: getattr(self, a) for a in attrs if hasattr(self, a)}
+
+    def reload_from_json(self, json):
+        """
+        Replaces all attributes of the Student instance from a dictionary.
+
+        Parameters:
+        - json (dict): A dictionary with attribute names as keys and
+        corresponding values.
+
+        Note:
+        - Assumes json will always be a dictionary.
+        - A dictionary key is the public attribute name.
+        - A dictionary value is the value of the public attribute.
+        """
+        for key, value in json.items():
+            setattr(self, key, value)
