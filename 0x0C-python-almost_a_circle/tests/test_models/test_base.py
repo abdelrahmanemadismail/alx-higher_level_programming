@@ -48,8 +48,8 @@ class TestBase(unittest.TestCase):
         with open("Rectangle.json", "r") as file:
             file_contents = file.read()
             expected_content = json.loads(
-                '[{"y": 8, "x": 2, "id": 5, "width": 10, "height": 7}, ' +
-                '{"y": 0, "x": 0, "id": 6, "width": 2, "height": 4}]'
+                '[{"y": 8, "x": 2, "id": 7, "width": 10, "height": 7}, ' +
+                '{"y": 0, "x": 0, "id": 8, "width": 2, "height": 4}]'
             )
             actual_content = json.loads(file_contents)
             self.assertEqual(expected_content, actual_content)
@@ -122,6 +122,49 @@ class TestBase(unittest.TestCase):
         expected_result = []
         result = Base.from_json_string(json_string)
         self.assertEqual(result, expected_result)
+
+    def tearDown(self):
+        """Clean up created files after each test."""
+        for cls in [Rectangle, Square]:
+            filename = cls.__name__ + ".csv"
+            if os.path.exists(filename):
+                os.remove(filename)
+
+    def test_save_to_file_csv(self):
+        """Test save_to_file_csv method"""
+        r1 = Rectangle(10, 7, 2, 8)
+        r2 = Rectangle(2, 4)
+        list_rectangles_input = [r1, r2]
+
+        Rectangle.save_to_file_csv(list_rectangles_input)
+
+        filename = Rectangle.__name__ + ".csv"
+        self.assertTrue(os.path.exists(filename))
+
+        with open(filename, 'r') as file:
+            content = file.read()
+            self.assertIn("9,10,7,2,8", content)
+            self.assertIn("10,2,4,0,0", content)
+
+    def test_load_from_file_csv(self):
+        """Test load_from_file_csv method"""
+        r1 = Rectangle(10, 7, 2, 8)
+        r2 = Rectangle(2, 4)
+        list_rectangles_input = [r1, r2]
+
+        Rectangle.save_to_file_csv(list_rectangles_input)
+
+        list_rectangles_output = Rectangle.load_from_file_csv()
+
+        self.assertEqual(
+                len(list_rectangles_input),
+                len(list_rectangles_output)
+                )
+        for i in range(len(list_rectangles_input)):
+            self.assertEqual(
+                    list_rectangles_input[i].to_dictionary(),
+                    list_rectangles_output[i].to_dictionary()
+                    )
 
 
 if __name__ == '__main__':
