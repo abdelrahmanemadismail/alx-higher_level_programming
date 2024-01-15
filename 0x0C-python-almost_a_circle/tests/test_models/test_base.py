@@ -6,6 +6,7 @@ import os
 import json
 from models.base import Base
 from models.rectangle import Rectangle
+from models.square import Square
 
 
 class TestBase(unittest.TestCase):
@@ -16,8 +17,8 @@ class TestBase(unittest.TestCase):
     def test_init_without_id(self):
         b1 = Base()
         b2 = Base()
-        self.assertEqual(b1.id, 1)
-        self.assertEqual(b2.id, 2)
+        self.assertEqual(b1.id, 3)
+        self.assertEqual(b2.id, 4)
 
     def test_to_json_string(self):
         """ Test to_json_string method """
@@ -47,8 +48,8 @@ class TestBase(unittest.TestCase):
         with open("Rectangle.json", "r") as file:
             file_contents = file.read()
             expected_content = json.loads(
-                '[{"y": 8, "x": 2, "id": 3, "width": 10, "height": 7}, ' +
-                '{"y": 0, "x": 0, "id": 4, "width": 2, "height": 4}]'
+                '[{"y": 8, "x": 2, "id": 5, "width": 10, "height": 7}, ' +
+                '{"y": 0, "x": 0, "id": 6, "width": 2, "height": 4}]'
             )
             actual_content = json.loads(file_contents)
             self.assertEqual(expected_content, actual_content)
@@ -77,6 +78,26 @@ class TestBase(unittest.TestCase):
         json_string = "invalid_json"
         with self.assertRaises(ValueError):
             Base.from_json_string(json_string)
+
+    def test_create_rectangle(self):
+        """Test create method with Rectangle class"""
+        dummy_data = {'id': 1, 'width': 3, 'height': 5, 'x': 1, 'y': 0}
+        created_instance = Rectangle.create(**dummy_data)
+        self.assertIsInstance(created_instance, Rectangle)
+        self.assertEqual(str(created_instance), "[Rectangle] (1) 1/0 - 3/5")
+
+    def test_create_square(self):
+        """Test create method with Square class"""
+        dummy_data = {'id': 1, 'size': 3, 'x': 1, 'y': 0}
+        created_instance = Square.create(**dummy_data)
+        self.assertIsInstance(created_instance, Square)
+        self.assertEqual(str(created_instance), "[Square] (1) 1/0 - 3")
+
+    def test_create_invalid_class(self):
+        """Test create method with an invalid class"""
+        dummy_data = {'id': 1, 'size': 3, 'x': 1, 'y': 0}
+        created_instance = Base.create(**dummy_data)
+        self.assertIsNone(created_instance)
 
 
 if __name__ == '__main__':
