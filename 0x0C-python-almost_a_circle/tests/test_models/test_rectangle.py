@@ -92,6 +92,18 @@ class TestRectangle(unittest.TestCase):
         r.update(89, 2, 3, 4, 5)
         self.assertEqual(str(r), "[Rectangle] (89) 4/5 - 2/3")
 
+    def test_update_with_kwargs(self):
+        """ Test update method with keyword arguments """
+        r = Rectangle(1, 2, 3, 4, 5)
+        r.update(id=89, width=5, height=4, x=7, y=1)
+        self.assertEqual(str(r), "[Rectangle] (89) 7/1 - 5/4")
+
+    def test_update_with_args_and_kwargs(self):
+        """ Test update method with both positional and keyword arguments """
+        r = Rectangle(1, 2, 3, 4, 5)
+        r.update(89, 2, 3, 4, 5, id=90, width=3, height=4, x=6, y=7)
+        self.assertEqual(str(r), "[Rectangle] (90) 6/7 - 3/4")
+
 
 if __name__ == '__main__':
     unittest.main()
