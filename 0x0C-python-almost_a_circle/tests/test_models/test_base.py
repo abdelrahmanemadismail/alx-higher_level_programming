@@ -53,6 +53,31 @@ class TestBase(unittest.TestCase):
             actual_content = json.loads(file_contents)
             self.assertEqual(expected_content, actual_content)
 
+    def test_from_json_string_empty(self):
+        """Test from_json_string with an empty string"""
+        json_string = "[]"
+        result = Base.from_json_string(json_string)
+        self.assertEqual(result, [])
+
+    def test_from_json_string_non_empty(self):
+        """Test from_json_string with a non-empty string"""
+        json_string = '[{"id": 1, "name": "John"}, {"id": 2, "name": "Jane"}]'
+        expect_result = [{'id': 1, 'name': 'John'}, {'id': 2, 'name': 'Jane'}]
+        result = Base.from_json_string(json_string)
+        self.assertEqual(result, expect_result)
+
+    def test_from_json_string_none(self):
+        """Test from_json_string with None"""
+        json_string = None
+        result = Base.from_json_string(json_string)
+        self.assertEqual(result, [])
+
+    def test_from_json_string_invalid_json(self):
+        """Test from_json_string with an invalid JSON string"""
+        json_string = "invalid_json"
+        with self.assertRaises(ValueError):
+            Base.from_json_string(json_string)
+
 
 if __name__ == '__main__':
     unittest.main()
