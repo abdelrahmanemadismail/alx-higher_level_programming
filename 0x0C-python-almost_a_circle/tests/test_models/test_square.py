@@ -28,6 +28,12 @@ class TestSquare(unittest.TestCase):
         s.size = 6
         self.assertEqual(s.size, 6)
 
+    def test_update(self):
+        """ Test update method """
+        s = Square(4, 1, 1, 1)
+        s.update(10, 2, 3, 4)
+        self.assertEqual(str(s), "[Square] (10) 3/4 - 2")
+
 
 if __name__ == '__main__':
     unittest.main()
