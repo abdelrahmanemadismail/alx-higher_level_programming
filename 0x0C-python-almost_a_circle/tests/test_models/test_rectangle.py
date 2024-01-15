@@ -106,9 +106,9 @@ class TestRectangle(unittest.TestCase):
 
     def test_to_dictionary(self):
         """ Test to_dictionary method """
-        r = Rectangle(4, 3, 2, 1)
+        r = Rectangle(4, 3, 2, 1, 5)
         dictionary = r.to_dictionary()
-        expected_dict = {'id': 9, 'width': 4, 'height': 3, 'x': 2, 'y': 1}
+        expected_dict = {'id': 5, 'width': 4, 'height': 3, 'x': 2, 'y': 1}
         self.assertEqual(dictionary, expected_dict)
 
 

@@ -2,7 +2,10 @@
 """Unit tests for Base class"""
 
 import unittest
+import os
+import json
 from models.base import Base
+from models.rectangle import Rectangle
 
 
 class TestBase(unittest.TestCase):
@@ -34,6 +37,21 @@ class TestBase(unittest.TestCase):
         # Test with None
         json_string_none = Base.to_json_string(None)
         self.assertEqual(json_string_none, '[]')
+
+    def test_save_to_file(self):
+        """ Test save_to_file method """
+        r1 = Rectangle(10, 7, 2, 8)
+        r2 = Rectangle(2, 4)
+        Rectangle.save_to_file([r1, r2])
+        self.assertTrue(os.path.exists("Rectangle.json"))
+        with open("Rectangle.json", "r") as file:
+            file_contents = file.read()
+            expected_content = json.loads(
+                '[{"y": 8, "x": 2, "id": 3, "width": 10, "height": 7}, ' +
+                '{"y": 0, "x": 0, "id": 4, "width": 2, "height": 4}]'
+            )
+            actual_content = json.loads(file_contents)
+            self.assertEqual(expected_content, actual_content)
 
 
 if __name__ == '__main__':
