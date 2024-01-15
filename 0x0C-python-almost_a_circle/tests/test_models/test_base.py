@@ -99,6 +99,30 @@ class TestBase(unittest.TestCase):
         created_instance = Base.create(**dummy_data)
         self.assertIsNone(created_instance)
 
+    def test_from_json_string(self):
+        json_string = (
+                '[{"id": 1, "width": 10, "height": 4}, ' +
+                '{"id": 2, "width": 5, "height": 2}]'
+                )
+        expected_result = [
+                {'id': 1, 'width': 10, 'height': 4},
+                {'id': 2, 'width': 5, 'height': 2}
+                ]
+        result = Base.from_json_string(json_string)
+        self.assertEqual(result, expected_result)
+
+    def test_from_json_string_empty(self):
+        json_string = ''
+        expected_result = []
+        result = Base.from_json_string(json_string)
+        self.assertEqual(result, expected_result)
+
+    def test_from_json_string_none(self):
+        json_string = None
+        expected_result = []
+        result = Base.from_json_string(json_string)
+        self.assertEqual(result, expected_result)
+
 
 if __name__ == '__main__':
     unittest.main()
